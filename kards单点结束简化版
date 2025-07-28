@@ -1,0 +1,52 @@
+#单纯点击结束回合，不出牌
+import pyautogui, time
+import keyboard
+def move(x, y, tm, ck):
+    pyautogui.moveTo(x, y)
+    time.sleep(tm)
+    if ck==1:
+        pyautogui.click()
+print('x开始, c确认手牌,v结束再开始, b重新开始, n终止结束回合')
+star=int(input('输入1以运行程序'))
+while True:
+    #当X按下时(第一次开始)：点击开始
+    if keyboard.is_pressed('x'):
+        time.sleep(0.05)
+        if not keyboard.is_pressed('x'):
+            move(1750, 950, 0.5, 1)#开始
+            pyautogui.click()
+    #当C按下时(进入匹配)：点击确定手牌并自动点击结束
+    if keyboard.is_pressed('c'):
+        time.sleep(0.05)
+        if not keyboard.is_pressed('c'):
+            move(963, 1031, 1, 1)
+            pyautogui.click()
+            pyautogui.click()
+            time.sleep(1)#确认手牌
+            while True:
+                time.sleep(2)
+                move(1783, 740, 1, 1)#结束回合
+                pyautogui.click()
+                if keyboard.is_pressed('v'):
+                    time.sleep(0.05)
+                    move(1710, 500, 2, 0)
+                    time.sleep(1)
+                    for i in range(2):
+                        pyautogui.click()
+                    time.sleep(1)
+                    for i in range(2):
+                        pyautogui.click()
+                    pyautogui.click()
+                    time.sleep(4)
+                    move(1750, 950, 0.5, 1)#开始
+                    pyautogui.click()
+                    pyautogui.click()
+                    time.sleep(1)
+                    pyautogui.click()
+                    break
+                if keyboard.is_pressed('n'):
+                    break
+    #当B按下时(任何时间)：结束程序运行(break)
+    if keyboard.is_pressed('b'):
+        print('End of session')
+        break
